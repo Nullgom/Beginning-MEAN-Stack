@@ -52,16 +52,61 @@ $ node timeout.js
 ### Console 객체
 콘솔 화면과 관련된 기능을 다루는 객체입니다.
 
+* **log()**  콘솔에 출력합니다.
+* **time(label)** 시간을 측정을 시작합니다.
+* **timeEnd(label)** 시간 측정을 종료합니다.
+
 ### Process 객체
 프로그램과 관련된 기능을 다루는 객체입니다.
 
-### Child_Process 객체
-자식 프로세스와 관련된 기능을 다루는 객체입니다.
+  **1) 속성**
 
-### Util 객체
-유틸리티 객체입니다.
+  * **argv** 실행 매개 변수 배열
+  * **env** 컴퓨터 환경과 관련된 정보를 표시
+  * **version** node.js 버전을 표시
+  * **versions** node.js와 종속된 프로그램 버전을 표시
+  * **arch** 프로세서의 아키텍처를 표시
+  * **platform** 플랫폼을 표시
+
+  **2) 메서드**
+
+  * **exit([exitCode = 0])** 프로그램을 종료합니다.
+  * **memoryUsage()** 메모리 사용 정보 객체를 리턴합니다.
+  * **uptime()** 현제 프로그램을 실행된 시간을 리턴합니다.
+
+### Exports 객체와 모듈
+Node.js는 모듈을 사용하여 기능을 확장합니다. 모듈은 기능을 쉽게 사용하고자 메서드와 속성을 미리 정의해 모아 놓은 것입니다. 이런 모듈을 생성할 때는 **exports** 객체를 사용합니다.
+
+	/* mymodule.js 파일 */
+	// 절대값을 구하는 메서드입니다.
+	exports.abs = function(number) {
+	    if (0 < number) {
+	        return number
+	    } else {
+	        return -number;
+	    }
+	};
+
+	// 원의 넓이를 구하기
+	exports.circleArea = function (radius) {
+	    return radius * radius * Math.PI;
+	};
 
 
+	/* moduleEx.js 파일 */
+	var myModule = require('./mymodule');
+	
+	// 모듈을 사용합니다.
+	console.log("-273의 절대값 : ", myModule.abs(-273));
+	console.log("반지름3의 원의 넓이: ", myModule.circleArea(3));
+
+	=== 실행 결과 ==============================
+	$node moduleEx.js
+	 -273의 절대값 :  273
+	반지름3의 원의 넓이:  28.274333882308138
+
+	
+	
 ### 그밖에 객체들
  node.js api를 참고
 
